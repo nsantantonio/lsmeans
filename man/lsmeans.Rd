@@ -7,23 +7,20 @@
 lsmeans(lmfit, effect, meanType = "intercept", alpha = 0.05)
 }
 \arguments{
-\item{lmfit}{[value]}
+\item{lmfit}{object of class lm.}
 
-\item{effect}{[value]}
+\item{effect}{character. Name of effect for which lsmeans should be calculated}
 
-\item{meanType}{[value]. Default is "intercept"}
+\item{meanType}{mean to use for calculating CV. Options include 'raw' = mean of y, 'effect' = mean of estimated effects, and 'intercept', the estimated intercept of th emodel fit. Default is "intercept". To reproduce CVs calculated by proc glm in SAS, use "intercept", or set contrasts to use sum contrsaints with 'options(contrasts = c("contr.sum", "contr.sum")'}
 
-\item{alpha}{[value]. Default is 0.05}
+\item{alpha}{numeric. Significance threshold. Default is 0.05}
 }
 \value{
-[value]
+list. Returns a list of BLUEs, mean used for CV, CV, and LSD.
 }
 \description{
-function to (do something)
+function to calculate lsmeans, CV and LSD from a linear model fit.
 }
 \details{
-[fill in details here]
-}
-\examples{
-none
+This function was made to calculate effects, CV and LSD as proc glm in SAS does. CVs are not reliable statistics for determining field trial quality.
 }
