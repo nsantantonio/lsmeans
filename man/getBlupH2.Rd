@@ -7,20 +7,20 @@
 getBlupH2(lmerFit, effect, addMu = FALSE)
 }
 \arguments{
-\item{lmerFit}{[value]}
+\item{lmerFit}{lmer model object.}
 
-\item{effect}{[value]}
+\item{effect}{factor to extract BLUPs and calculate heritability}
 
-\item{addMu}{[value]. Default is FALSE}
+\item{addMu}{logical. Should the mean be added back into the BLUP? Default is FALSE}
 }
 \value{
-[value]
+list. Returns list of BLUP, mean, and h2, i.e. heritability
 }
 \description{
-function to (do something)
+function to extract BLUPs and calculate heritability.
 }
 \details{
-[fill in details here]
+extracts BlUPs and calculates heritability
 }
 \examples{
 none

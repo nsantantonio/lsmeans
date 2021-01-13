@@ -1,12 +1,12 @@
 #' getBlupH2 function
 #'
-#' function to (do something)
+#' function to extract BLUPs and calculate heritability.
 #'
-#' @param lmerFit [value]
-#' @param effect [value]
-#' @param addMu [value]. Default is FALSE
-#' @return [value]
-#' @details [fill in details here]
+#' @param lmerFit lmer model object.
+#' @param effect factor to extract BLUPs and calculate heritability
+#' @param addMu logical. Should the mean be added back into the BLUP? Default is FALSE
+#' @return list. Returns list of BLUP, mean, and h2, i.e. heritability
+#' @details extracts BlUPs and calculates heritability 
 #' @examples none
 #' @export
 getBlupH2 <- function(lmerFit, effect, addMu = FALSE){
