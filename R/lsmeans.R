@@ -17,7 +17,7 @@
 #' lsmeans(fit, effect = "factor(cyl)")
 #' options(contrasts = usrContr)'
 #' @export
-lsmeans <- function(lmfit, effect, meanType = "intercept", alpha = 0.05){
+lsmeans <- function(lmfit, effect, meanType = "intercept", alpha = 0.05, sortHiLo = FALSE, sortLoHi = FALSE){
 	if(alpha >= 1 | alpha <= 0) stop("alpha must be between 0 and 1, i.e. 0 < alpha < 1")
 	if(!meanType %in% c("raw", "effect", "weighted", "intercept")) stop("meanType agrgument must one of the following:\n 'raw', 'effect', 'intercept'")
 
@@ -63,6 +63,12 @@ lsmeans <- function(lmfit, effect, meanType = "intercept", alpha = 0.05){
 	
 	names(cv) <- NULL
 	names(mu) <- NULL
+
+	if(sortHiLo) {
+		eff <- sort(eff, decreasing = TRUE)
+	} else if (sortLoHi) {
+		eff <- sort(eff)
+	} 
 
 	rL <- list(BLUE = eff, mean = mu, CV = cv, LSD = lsd)
 	return(rL)
