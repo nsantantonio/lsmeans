@@ -12,13 +12,16 @@
 getBlupH2 <- function(lmerFit, effect, addMu = FALSE){
 	vc <- as.data.frame(VarCorr(lmerFit))
 	rownames(vc) <- vc$grp
-	GE <- vc[c(effect, "Residual"), "vcov"]
-	h2 <- GE[1] / sum(GE)
+	# GE <- vc[c(effect, "Residual"), "vcov"]
+	# h2 <- GE[1] / sum(GE)
+	Vg <- vc[c(effect), "vcov"]
+	Verr <- vc[c("Residual"), "vcov"]
+	h2 <- Vg / (Vg + Verr)
 	effTab <- ranef(lmerFit)[[effect]]
 	eff <- effTab[,1]
 	names(eff) <- rownames(effTab)
 	mu <- fixef(lmerFit)[["(Intercept)"]]
 	if(addMu) eff <- eff + mu
-	rL <- list(BLUP = eff, mean = mu, h2 = h2)
+	rL <- list(BLUP = eff, mean = mu, h2 = h2, sigma = sqrt(Verr))
 	return(rL)
 }
