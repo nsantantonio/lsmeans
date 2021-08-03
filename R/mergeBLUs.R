@@ -12,7 +12,8 @@
 mergeBLUs <- function(BLUlist, sortHiLo = NULL, addInfo){
 	flev <- unique(lapply(BLUlist, function(x) {names(x[[1]])}))
 	if(length(flev) > 1){
-		stop("effect factor levels differ! fix me...")
+		message("effect factor levels differ! Using union of factor levels")
+		flev <- Reduce(union, flev)
 	} else {
 		flev <- flev[[1]]
 	}
@@ -31,7 +32,6 @@ mergeBLUs <- function(BLUlist, sortHiLo = NULL, addInfo){
 	bluDF <- data.frame(effect = names(x1))
 	bluDF[[names(BLUlist)[1]]] <- x1
 
-	# blueDF <- data.frame(bluDF, do.call(cbind, BLUlist))
 	for(i in 2:length(BLUlist)){
 		x2 <- BLUlist[[i]][[1]]
 		bluDFi <- data.frame(effect = names(x2))
