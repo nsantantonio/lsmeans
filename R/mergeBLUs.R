@@ -31,14 +31,18 @@ mergeBLUs <- function(BLUlist, sortHiLo = NULL, addInfo){
 	bluDF <- data.frame(effect = names(x1))
 	bluDF[[names(BLUlist)[1]]] <- x1
 
+	# blueDF <- data.frame(bluDF, do.call(cbind, BLUlist))
 	for(i in 2:length(BLUlist)){
 		x2 <- BLUlist[[i]][[1]]
 		bluDFi <- data.frame(effect = names(x2))
 		bluDFi[[names(BLUlist)[i]]] <- x2
 		bluDF <- merge(bluDF, bluDFi, by = "effect", all = TRUE)
 	}
+
 	if(!is.null(sortHiLo)){
 		bluDF <- bluDF[order(-bluDF[[sortHiLo]]),]	
+	} else {
+		bluDF <- bluDF[order(factor(bluDF[["effect"]], levels = flev)),]
 	}
 	statL <- list()
 	for(j in names(BLUlist[[1]])[2:length(BLUlist[[1]])]){
