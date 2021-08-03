@@ -12,6 +12,6 @@
 makeBLUtab <- function(BLU, sortby = NULL, addInfo = NULL){
 	bluTab <- mergeBLUs(BLU, sortHiLo = sortby, addInfo = addInfo)
 	bluTabwStats <- do.call(rbind, bluTab)
-	bluTabwStats[is.na(bluTabwStats$randEff), "randEff"] <- rownames(bluTabwStats)[is.na(bluTabwStats$randEff)]
+	bluTabwStats[is.na(bluTabwStats$effect), "effect"] <- rownames(bluTabwStats)[is.na(bluTabwStats$effect)]
 	return(bluTabwStats)
 }

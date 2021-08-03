@@ -10,7 +10,15 @@
 #' @examples none
 #' @export
 mergeBLUs <- function(BLUlist, sortHiLo = NULL, addInfo){
+	flev <- unique(lapply(BLUlist, function(x) {names(x[[1]])}))
+	if(length(flev) > 1){
+		stop("effect factor levels differ! fix me...")
+	} else {
+		flev <- flev[[1]]
+	}
+
 	if(!is.null(addInfo)){
+		addInfo <- lapply(addInfo, "[", flev)
 		addToBLU <- list() 
 		for(i in names(addInfo)){
 			xtra <- 2:length(BLUlist[[1]])
@@ -20,14 +28,14 @@ mergeBLUs <- function(BLUlist, sortHiLo = NULL, addInfo){
 		BLUlist <- c(addToBLU, BLUlist)
 	}
 	x1 <- BLUlist[[1]][[1]]
-	bluDF <- data.frame(randEff = names(x1))
+	bluDF <- data.frame(effect = names(x1))
 	bluDF[[names(BLUlist)[1]]] <- x1
 
 	for(i in 2:length(BLUlist)){
 		x2 <- BLUlist[[i]][[1]]
-		bluDFi <- data.frame(randEff = names(x2))
+		bluDFi <- data.frame(effect = names(x2))
 		bluDFi[[names(BLUlist)[i]]] <- x2
-		bluDF <- merge(bluDF, bluDFi, by = "randEff", all = TRUE)
+		bluDF <- merge(bluDF, bluDFi, by = "effect", all = TRUE)
 	}
 	if(!is.null(sortHiLo)){
 		bluDF <- bluDF[order(-bluDF[[sortHiLo]]),]	
