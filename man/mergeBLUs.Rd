@@ -4,7 +4,7 @@
 \alias{mergeBLUs}
 \title{mergeBLUs function}
 \usage{
-mergeBLUs(BLUlist, sortHiLo = NULL, addInfo)
+mergeBLUs(BLUlist, sortHiLo = NULL, sortLoHi = NULL, addInfo = NULL)
 }
 \arguments{
 \item{BLUlist}{[value]}

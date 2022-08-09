@@ -25,3 +25,11 @@ function to calculate lsmeans, CV and LSD from a linear model fit.
 \details{
 This function was made to calculate effects, CV and LSD as proc glm in SAS does. CVs are not reliable statistics for determining field trial quality.
 }
+\examples{
+# contrasts need to be set to sum contraints to obtain same stats produced by proc glm in SAS 
+usrContr <- options("contrasts") # save user contrast options
+options(contrasts = c('contr.sum', 'contr.sum'))
+fit <- lm(mpg ~ factor(cyl), data = mtcars)
+lsmeans(fit, effect = "factor(cyl)")
+options(contrasts = usrContr)
+}

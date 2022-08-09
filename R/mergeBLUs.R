@@ -9,7 +9,8 @@
 #' @details [fill in details here]
 #' @examples none
 #' @export
-mergeBLUs <- function(BLUlist, sortHiLo = NULL, addInfo){
+mergeBLUs <- function(BLUlist, sortHiLo = NULL, sortLoHi = NULL, addInfo = NULL){
+	# BLUlist = BLUE; traits = traits; addInfo = dfInfo(addEntry, by = "Line"); sortHiLo = by
 	flev <- unique(lapply(BLUlist, function(x) {names(x[[1]])}))
 	if(length(flev) > 1){
 		message("effect factor levels differ! Using union of factor levels")
@@ -41,6 +42,8 @@ mergeBLUs <- function(BLUlist, sortHiLo = NULL, addInfo){
 
 	if(!is.null(sortHiLo)){
 		bluDF <- bluDF[order(-bluDF[[sortHiLo]]),]	
+	} else if(!is.null(sortLoHi)){
+		bluDF <- bluDF[order(bluDF[[sortLoHi]]),]	
 	} else {
 		bluDF <- bluDF[order(factor(bluDF[["effect"]], levels = flev)),]
 	}

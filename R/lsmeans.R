@@ -15,7 +15,7 @@
 #' options(contrasts = c('contr.sum', 'contr.sum'))
 #' fit <- lm(mpg ~ factor(cyl), data = mtcars)
 #' lsmeans(fit, effect = "factor(cyl)")
-#' options(contrasts = usrContr)'
+#' options(contrasts = usrContr)
 #' @export
 lsmeans <- function(lmfit, effect, meanType = "intercept", alpha = 0.05, sortHiLo = FALSE, sortLoHi = FALSE){
 	if(alpha >= 1 | alpha <= 0) stop("alpha must be between 0 and 1, i.e. 0 < alpha < 1")
