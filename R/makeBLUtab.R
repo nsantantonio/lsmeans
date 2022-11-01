@@ -9,8 +9,8 @@
 #' @details [fill in details here]
 #' @examples none
 #' @export
-makeBLUtab <- function(BLU, sortby = NULL, addInfo = NULL){
-	bluTab <- mergeBLUs(BLU, sortHiLo = sortby, addInfo = addInfo)
+makeBLUtab <- function(BLU, sortHiLo = NULL, sortLoHi = NULL, addInfo = NULL){
+	bluTab <- mergeBLUs(BLU, sortHiLo = sortHiLo, sortLoHi = sortLoHi, addInfo = addInfo)
 	bluTabwStats <- do.call(rbind, bluTab)
 	bluTabwStats[is.na(bluTabwStats$effect), "effect"] <- rownames(bluTabwStats)[is.na(bluTabwStats$effect)]
 	return(bluTabwStats)

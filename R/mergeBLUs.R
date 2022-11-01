@@ -40,13 +40,23 @@ mergeBLUs <- function(BLUlist, sortHiLo = NULL, sortLoHi = NULL, addInfo = NULL)
 		bluDF <- merge(bluDF, bluDFi, by = "effect", all = TRUE)
 	}
 
-	if(!is.null(sortHiLo)){
-		bluDF <- bluDF[order(-bluDF[[sortHiLo]]),]	
-	} else if(!is.null(sortLoHi)){
-		bluDF <- bluDF[order(bluDF[[sortLoHi]]),]	
-	} else {
-		bluDF <- bluDF[order(factor(bluDF[["effect"]], levels = flev)),]
+	if(!is.null(sortHiLo) & !is.null(sortLoHi)) stop("please provide a variable name only to either sortLoHi or sortHiLo, not both!")
+	
+	sortVarOk <- FALSE
+	if(!is.null(sortHiLo)) {
+		if(sortHiLo %in% names(bluDF)) sortVarOk <- TRUE 
+	} else	if(!is.null(sortLoHi)) {
+		if(sortLoHi %in% names(bluDF)) sortVarOk <- TRUE 
 	}
+	
+	if(!is.null(sortHiLo) & sortVarOk){ 
+		sortOrder <- order(-bluDF[[sortHiLo]])
+	} else if(!is.null(sortLoHi) & sortVarOk){
+		sortOrder <- order(bluDF[[sortLoHi]])
+	} else {
+		sortOrder <- order(factor(bluDF[["effect"]], levels = flev))
+	}
+	bluDF <- bluDF[sortOrder,]
 	statL <- list()
 	for(j in names(BLUlist[[1]])[2:length(BLUlist[[1]])]){
 		statL[[j]] <- c(NA, sapply(BLUlist, "[[", j))

@@ -4,14 +4,14 @@
 \alias{makeBLUtab}
 \title{makeBLUtab function}
 \usage{
-makeBLUtab(BLU, sortby = NULL, addInfo = NULL)
+makeBLUtab(BLU, sortHiLo = NULL, sortLoHi = NULL, addInfo = NULL)
 }
 \arguments{
 \item{BLU}{[value]}
 
-\item{sortby}{[value]. Default is NULL}
-
 \item{addInfo}{[value]. Default is NULL}
+
+\item{sortby}{[value]. Default is NULL}
 }
 \value{
 [value]
