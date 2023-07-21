@@ -10,7 +10,7 @@
 #' @examples none
 #' @export
 mergeBLUs <- function(BLUlist, sortHiLo = NULL, sortLoHi = NULL, addInfo = NULL){
-	# BLUlist = BLUE; traits = traits; addInfo = dfInfo(addEntry, by = "Line"); sortHiLo = by
+	# BLUlist = BLUE; traits = traits; addInfo = twoOrSix; sortHiLo = "DP"
 	flev <- unique(lapply(BLUlist, function(x) {names(x[[1]])}))
 	if(length(flev) > 1){
 		message("effect factor levels differ! Using union of factor levels")
@@ -19,6 +19,9 @@ mergeBLUs <- function(BLUlist, sortHiLo = NULL, sortLoHi = NULL, addInfo = NULL)
 		flev <- flev[[1]]
 	}
 
+	if(is.data.frame(addInfo)){
+		addInfo <- dfInfo(addInfo, by = names(addInfo[[1]]))
+	}
 	if(!is.null(addInfo)){
 		addInfo <- lapply(addInfo, "[", flev)
 		addToBLU <- list() 
@@ -33,11 +36,13 @@ mergeBLUs <- function(BLUlist, sortHiLo = NULL, sortLoHi = NULL, addInfo = NULL)
 	bluDF <- data.frame(effect = names(x1))
 	bluDF[[names(BLUlist)[1]]] <- x1
 
-	for(i in 2:length(BLUlist)){
-		x2 <- BLUlist[[i]][[1]]
-		bluDFi <- data.frame(effect = names(x2))
-		bluDFi[[names(BLUlist)[i]]] <- x2
-		bluDF <- merge(bluDF, bluDFi, by = "effect", all = TRUE)
+	if(length(BLUlist) > 1){
+		for(i in 2:length(BLUlist)){
+			x2 <- BLUlist[[i]][[1]]
+			bluDFi <- data.frame(effect = names(x2))
+			bluDFi[[names(BLUlist)[i]]] <- x2
+			bluDF <- merge(bluDF, bluDFi, by = "effect", all = TRUE)
+		}
 	}
 
 	if(!is.null(sortHiLo) & !is.null(sortLoHi)) stop("please provide a variable name only to either sortLoHi or sortHiLo, not both!")
