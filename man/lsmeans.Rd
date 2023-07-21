@@ -4,8 +4,14 @@
 \alias{lsmeans}
 \title{lsmeans function}
 \usage{
-lsmeans(lmfit, effect, meanType = "intercept", alpha = 0.05,
-  sortHiLo = FALSE, sortLoHi = FALSE)
+lsmeans(
+  lmfit,
+  effect,
+  meanType = "intercept",
+  alpha = 0.05,
+  sortHiLo = FALSE,
+  sortLoHi = FALSE
+)
 }
 \arguments{
 \item{lmfit}{object of class lm.}
